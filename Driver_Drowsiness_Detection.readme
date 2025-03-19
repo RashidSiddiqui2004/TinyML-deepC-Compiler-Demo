@@ -1,0 +1,24 @@
+//  This model has 1 input(s):
+//  1. "input_1" (ndarray with shape 1, 32, 32, 3)
+//  Outputs are returned as :
+//  1. "fc3" (ndarray with shape 1, 2)
+//  
+//  
+//  Sample code for integration:
+#include "Driver_Drowsiness_Detection_deepC/Driver_Drowsiness_Detection.h"
+  ...
+  ...
+  float dnnc_input_1_data[3072]; // model input "input_1", developer to assign values.
+  unsigned short dnnc_input_1_shape[] = {1, 32, 32, 3}; // model input shape.
+  deepSea::ndarray<float> dnnc_input_1(dnnc_input_1_data, dnnc_input_1_shape, 4);
+
+  //  Call to deepSea_model below returns results as vector of ndarray.
+  //  Vector elemets are:
+  //  1. node "fc3" (ndarray with shape 1, 2)
+  std::vector<deepSea::ndarray<float>> deepSea_result = deepSea_model(dnnc_input_1);
+  ...
+  ...
+  // Remember to release the ndarray memory in deepSea_result, when done processing the results.
+  for (unsigned int i=0; i<deepSea_result.size(); i++)
+    free(deepSea_result[i]);
+
